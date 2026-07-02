@@ -175,11 +175,11 @@ const Profile = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">Age</label>
+                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">Age <span className="text-red-500 font-bold ml-0.5">*</span></label>
                             <input type="number" name="age" value={formData.age} onChange={handleChange} className="glass-input w-full p-3" required />
                         </div>
                         <div>
-                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">Gender</label>
+                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">Gender <span className="text-red-500 font-bold ml-0.5">*</span></label>
                             <select name="gender" value={formData.gender} onChange={handleChange} className="glass-input w-full p-3 bg-slate-800" required>
                                 <option value="">Select Gender</option>
                                 <option value="Male">Male</option>
@@ -188,15 +188,15 @@ const Profile = () => {
                             </select>
                         </div>
                         <div>
-                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">Occupation</label>
+                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">Occupation <span className="text-red-500 font-bold ml-0.5">*</span></label>
                             <input type="text" name="occupation" value={formData.occupation} onChange={handleChange} className="glass-input w-full p-3" placeholder="e.g. Farmer, Student, Artisan" required />
                         </div>
                         <div>
-                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">Annual Income (₹)</label>
+                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">Annual Income (₹) <span className="text-red-500 font-bold ml-0.5">*</span></label>
                             <input type="number" name="income" value={formData.income} onChange={handleChange} className="glass-input w-full p-3" required />
                         </div>
                         <div>
-                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">Education Level</label>
+                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">Education Level <span className="text-red-500 font-bold ml-0.5">*</span></label>
                             <select name="education" value={formData.education} onChange={handleChange} className="glass-input w-full p-3 bg-slate-800" required>
                                 <option value="">Select Education</option>
                                 <option value="None">None</option>
@@ -207,7 +207,7 @@ const Profile = () => {
                             </select>
                         </div>
                         <div>
-                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">State / Region</label>
+                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">State / Region <span className="text-red-500 font-bold ml-0.5">*</span></label>
                             <select name="state" value={formData.state} onChange={handleChange} className="glass-input w-full p-3 bg-slate-800" required>
                                 <option value="">Select State/UT</option>
                                 <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -249,7 +249,7 @@ const Profile = () => {
                             </select>
                         </div>
                         <div>
-                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">Marital Status</label>
+                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">Marital Status <span className="text-red-500 font-bold ml-0.5">*</span></label>
                             <select name="marital_status" value={formData.marital_status || ''} onChange={handleChange} className="glass-input w-full p-3 bg-slate-800" required>
                                 <option value="">Select Status</option>
                                 <option value="Single">Single</option>
@@ -266,7 +266,7 @@ const Profile = () => {
                             </select>
                         </div>
                         <div>
-                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">Category / Caste</label>
+                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">Category / Caste <span className="text-red-500 font-bold ml-0.5">*</span></label>
                             <select name="category" value={formData.category} onChange={handleChange} className="glass-input w-full p-3 bg-slate-800" required>
                                 <option value="">Select Category</option>
                                 <option value="General">General</option>
@@ -326,11 +326,11 @@ const Profile = () => {
                     <form onSubmit={handleFamilySubmit} className="space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-xs font-bold text-slate-400 mb-1 uppercase">Name *</label>
+                                <label className="block text-xs font-bold text-slate-400 mb-1 uppercase">Name <span className="text-red-500 font-bold">*</span></label>
                                 <input type="text" name="name" value={familyFormData.name} onChange={handleFamilyChange} className="glass-input w-full p-2.5 text-sm" required />
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-slate-400 mb-1 uppercase">Relationship *</label>
+                                <label className="block text-xs font-bold text-slate-400 mb-1 uppercase">Relationship <span className="text-red-500 font-bold">*</span></label>
                                 <select name="relationship" value={familyFormData.relationship} onChange={handleFamilyChange} className="glass-input w-full p-2.5 text-sm bg-slate-800" required>
                                     <option value="">Select</option>
                                     <option value="Father">Father</option>
@@ -347,11 +347,11 @@ const Profile = () => {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-slate-400 mb-1 uppercase">Age *</label>
+                                <label className="block text-xs font-bold text-slate-400 mb-1 uppercase">Age <span className="text-red-500 font-bold">*</span></label>
                                 <input type="number" name="age" value={familyFormData.age} onChange={handleFamilyChange} className="glass-input w-full p-2.5 text-sm" required />
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-slate-400 mb-1 uppercase">Gender *</label>
+                                <label className="block text-xs font-bold text-slate-400 mb-1 uppercase">Gender <span className="text-red-500 font-bold">*</span></label>
                                 <select name="gender" value={familyFormData.gender} onChange={handleFamilyChange} className="glass-input w-full p-2.5 text-sm bg-slate-800" required>
                                     <option value="">Select</option>
                                     <option value="Male">Male</option>

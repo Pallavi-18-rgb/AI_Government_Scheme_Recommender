@@ -201,16 +201,22 @@ const Recommendations = () => {
 
                                         {rec.required_documents?.length > 0 && (
                                             <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
-                                                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center">
-                                                    <FileText className="w-4 h-4 mr-2"/> Required Documents
+                                                <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 flex items-center">
+                                                    <FileText className="w-4 h-4 mr-2 text-blue-500"/> Required Documents
                                                 </div>
                                                 <ul className="space-y-2">
                                                     {rec.required_documents.map((doc, dIdx) => {
                                                         const hasDoc = userDocuments[doc];
                                                         return (
-                                                            <li key={dIdx} className="flex items-center text-sm cursor-pointer hover:bg-slate-800 p-1 rounded" onClick={() => toggleDocument(doc)}>
-                                                                {hasDoc ? <CheckSquare className="w-4 h-4 text-cyan-500 mr-2 flex-shrink-0"/> : <Square className="w-4 h-4 text-slate-600 mr-2 flex-shrink-0"/>}
-                                                                <span className={hasDoc ? "text-slate-300 line-through opacity-50" : "text-slate-300"}>{doc}</span>
+                                                            <li key={dIdx} className={`flex items-center text-sm cursor-pointer p-2 rounded transition-colors ${hasDoc ? 'bg-green-500/10 hover:bg-green-500/20' : 'bg-red-500/10 hover:bg-red-500/20'}`} onClick={() => toggleDocument(doc)}>
+                                                                {hasDoc ? (
+                                                                    <CheckCircle2 className="w-4 h-4 text-green-500 mr-2.5 flex-shrink-0" />
+                                                                ) : (
+                                                                    <AlertCircle className="w-4 h-4 text-red-500 mr-2.5 flex-shrink-0 animate-pulse" />
+                                                                )}
+                                                                <span className={hasDoc ? "text-green-700 line-through font-medium" : "text-red-700 font-black"}>
+                                                                    {doc} {hasDoc ? "(Available)" : "(Required)"}
+                                                                </span>
                                                             </li>
                                                         )
                                                     })}
