@@ -27,38 +27,41 @@ const LoginRegister = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-[70vh]">
-            <div className="glass-panel p-10 w-full max-w-md">
-                <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">{isLogin ? 'Welcome Back' : 'Create Account'}</h2>
-                <form onSubmit={handleSubmit} className="space-y-5">
-                    {!isLogin && (
+        <div className="min-h-[80vh] bg-slate-50 flex items-center justify-center px-4 py-16 sm:px-6">
+            <div className="w-full max-w-xl rounded-[2rem] bg-white border border-slate-200 shadow-xl overflow-hidden">
+                <div className="bg-sky-600 px-8 py-10 text-white">
+                    <h2 className="text-4xl font-black mb-2">{isLogin ? 'Welcome Back' : 'Create Account'}</h2>
+                    <p className="text-slate-100 text-sm max-w-xl">Secure access to your personalized welfare recommendations, eligibility tracker, and scheme applications.</p>
+                </div>
+                <div className="p-8">
+                    <form onSubmit={handleSubmit} className="space-y-5">
+                        {!isLogin && (
+                            <div>
+                                <label className="block text-sm font-semibold text-slate-700 mb-2">Full Name</label>
+                                <input type="text" name="name" value={formData.name} onChange={handleChange} className="glass-input w-full p-4" required />
+                            </div>
+                        )}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">Full Name</label>
-                            <input type="text" name="name" value={formData.name} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border focus:ring-slate-500 focus:border-slate-500" required />
+                            <label className="block text-sm font-semibold text-slate-700 mb-2">Email</label>
+                            <input type="email" name="email" value={formData.email} onChange={handleChange} className="glass-input w-full p-4" required />
                         </div>
-                    )}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" name="email" value={formData.email} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border focus:ring-slate-500 focus:border-slate-500" required />
-                    </div>
-                    {!isLogin && (
+                        {!isLogin && (
+                            <div>
+                                <label className="block text-sm font-semibold text-slate-700 mb-2">Phone</label>
+                                <input type="text" name="phone" value={formData.phone} onChange={handleChange} className="glass-input w-full p-4" required />
+                            </div>
+                        )}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">Phone</label>
-                            <input type="text" name="phone" value={formData.phone} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border focus:ring-slate-500 focus:border-slate-500" required />
+                            <label className="block text-sm font-semibold text-slate-700 mb-2">Password</label>
+                            <input type="password" name="password" value={formData.password} onChange={handleChange} className="glass-input w-full p-4" required />
                         </div>
-                    )}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Password</label>
-                        <input type="password" name="password" value={formData.password} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border focus:ring-slate-500 focus:border-slate-500" required />
+                        <button type="submit" className="glass-button w-full text-white font-semibold text-base">{isLogin ? 'Sign In' : 'Sign Up'}</button>
+                    </form>
+                    <div className="mt-6 text-center">
+                        <button onClick={() => setIsLogin(!isLogin)} className="text-sm text-slate-600 hover:text-slate-900 font-semibold">
+                            {isLogin ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
+                        </button>
                     </div>
-                    <button type="submit" className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-slate-600 hover:bg-slate-700 transition-colors">
-                        {isLogin ? 'Sign In' : 'Sign Up'}
-                    </button>
-                </form>
-                <div className="mt-6 text-center">
-                    <button onClick={() => setIsLogin(!isLogin)} className="text-sm text-slate-600 hover:text-slate-500 font-medium">
-                        {isLogin ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
-                    </button>
                 </div>
             </div>
         </div>

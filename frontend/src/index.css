@@ -1,141 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @layer base {
   body {
-    background-color: #f4f7f9 !important; /* Soft, calming, low-stress gray-blue background */
-    color: #1e293b !important;
+    background-color: #0a0f0a !important;
+    background-image:
+      radial-gradient(circle at top left, rgba(16, 185, 129, 0.07), transparent 40%),
+      radial-gradient(circle at bottom right, rgba(5, 150, 105, 0.05), transparent 40%);
+    color: #e2e8f0 !important;
     font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
   }
-  
-  /* Global text overrides - soft dark blue for readability without eye strain */
+
   h1, h2, h3, h4, h5, h6 {
-    color: #0f172a !important;
-    letter-spacing: -0.01em;
+    color: #f0fdf4 !important;
+    letter-spacing: -0.02em;
   }
-  
+
   p, span, label {
-    color: #475569;
+    color: #94a3b8;
   }
 
+  /* Override text colors for dark mode */
   .text-slate-100, .text-slate-200, .text-slate-300, .text-white {
-    color: #1e293b !important;
+    color: #e2e8f0 !important;
   }
-  
+
   .text-slate-400, .text-slate-500 {
-    color: #57606a !important; /* Calming dark gray text */
+    color: #64748b !important;
   }
-  
-  /* Background overrides - soft white cards and panels */
+
+  /* Background overrides - dark green-tinted surfaces */
   .bg-slate-950 {
-    background-color: #f4f7f9 !important;
+    background-color: #0a0f0a !important;
   }
-  
+
   .bg-slate-900, .bg-slate-900\/50, .bg-slate-900\/80 {
-    background-color: #ffffff !important;
+    background-color: #0f1a0f !important;
   }
-  
+
   .bg-slate-800, .bg-slate-800\/50, .bg-slate-800\/80 {
-    background-color: #f8fafc !important;
+    background-color: #162016 !important;
   }
-  
-  /* Sidebar and Nav background overrides - clean white layout */
+
+  /* Sidebar */
   aside.bg-slate-950\/80, aside {
-    background-color: #ffffff !important;
-    border-right-color: #e2e8f0 !important;
+    background-color: #0d150d !important;
+    border-right-color: #1a2e1a !important;
   }
-  
+
   header {
-    border-bottom-color: #e2e8f0 !important;
+    border-bottom-color: #1a2e1a !important;
+    background-color: #0d150d !important;
   }
-  
-  /* Border overrides - very soft silver borders to reduce visual clutter */
+
+  /* Borders */
   .border-slate-800\/60, .border-slate-700, .border-slate-700\/50, .border-slate-800\/50 {
-    border-color: #edf2f7 !important;
+    border-color: #1e3a1e !important;
   }
 
-  /* Accents (Cyan -> Calming Trustworthy Royal Blue) */
+  /* Emerald accent colors */
   .text-cyan-400, .text-cyan-500 {
-    color: #2563eb !important;
+    color: #10b981 !important;
   }
-  
-  /* Soft background highlights for alert cards - amber/blue/green tints */
+
   .bg-cyan-950\/50, .bg-cyan-950\/80, .bg-cyan-950\/90 {
-    background-color: #f0f7ff !important;
+    background-color: rgba(16, 185, 129, 0.1) !important;
   }
-  
+
   .border-cyan-800\/50, .border-cyan-900\/50, .border-cyan-900\/60 {
-    border-color: #dbeafe !important;
+    border-color: rgba(16, 185, 129, 0.25) !important;
   }
-  
+
   .text-cyan-300 {
-    color: #1e3a8a !important;
+    color: #6ee7b7 !important;
   }
 
-  /* Non-stressful status indicators (Muted Green & Soft Coral instead of alarming colors) */
+  /* Status indicators */
   .bg-green-500\/10 {
-    background-color: rgba(34, 197, 94, 0.08) !important;
-  }
-  .text-green-700 {
-    color: #16a34a !important;
-  }
-  
-  .bg-red-500\/10 {
-    background-color: rgba(244, 63, 94, 0.06) !important; /* Soft, warm coral background */
-  }
-  .text-red-700 {
-    color: #e11d48 !important; /* Calm coral red */
+    background-color: rgba(16, 185, 129, 0.12) !important;
   }
 
-  /* Button text should remain white! */
+  .text-green-700 {
+    color: #34d399 !important;
+  }
+
+  .bg-red-500\/10 {
+    background-color: rgba(239, 68, 68, 0.1) !important;
+  }
+
+  .text-red-700 {
+    color: #f87171 !important;
+  }
+
+  /* Buttons */
   button.glass-button, a.glass-button, .glass-button {
     color: #ffffff !important;
-    background-color: #2563eb !important;
+    background-image: linear-gradient(135deg, #059669, #10b981) !important;
+    border: 1px solid rgba(16, 185, 129, 0.3) !important;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.2) !important;
   }
-  
+
   button.glass-button:hover, a.glass-button:hover, .glass-button:hover {
-    background-color: #1d4ed8 !important;
+    background-image: linear-gradient(135deg, #10b981, #34d399) !important;
+    box-shadow: 0 6px 24px rgba(16, 185, 129, 0.35) !important;
+  }
+
+  /* Select options dark background */
+  select option {
+    background-color: #0f1a0f !important;
+    color: #e2e8f0 !important;
   }
 }
 
 @layer components {
   .glass-panel {
-    background-color: rgba(255, 255, 255, 0.85) !important;
-    backdrop-filter: blur(20px);
-    border: 1px solid #edf2f7 !important;
-    box-shadow: 0 4px 20px -2px rgba(148, 163, 184, 0.08), 0 2px 8px -2px rgba(148, 163, 184, 0.04) !important;
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s ease, box-shadow 0.25s ease !important;
+    background: rgba(15, 26, 15, 0.85) !important;
+    border: 1px solid rgba(30, 58, 30, 0.9) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(16, 185, 129, 0.05) inset !important;
+    border-radius: 1.25rem !important;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+    backdrop-filter: blur(12px);
   }
-  
+
   .glass-panel:hover {
-    transform: translateY(-2px); /* Muted, softer lift for reduced visual stress */
-    border-color: rgba(37, 99, 235, 0.25) !important;
-    box-shadow: 0 12px 24px -6px rgba(37, 99, 235, 0.06), 0 4px 12px -4px rgba(0, 0, 0, 0.02) !important;
+    transform: translateY(-2px) !important;
+    border-color: rgba(16, 185, 129, 0.3) !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(16, 185, 129, 0.1) !important;
   }
-  
+
   .glass-button {
-    @apply bg-cyan-600/90 hover:bg-cyan-500 text-white shadow-[0_4px_12px_rgba(37,99,235,0.18)] transition-all duration-200 transform active:scale-95;
-    background-color: #2563eb !important;
+    @apply text-white transition-all duration-200 transform active:scale-95 font-semibold;
+    border-radius: 0.875rem !important;
+    padding: 0.75rem 1.25rem !important;
   }
-  
+
   .glass-button:hover {
-    background-color: #1d4ed8 !important;
     transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3) !important;
   }
-  
+
   .glass-input {
-    background-color: #ffffff !important;
-    border: 1px solid #d1d5db !important;
-    color: #1e293b !important;
+    background-color: #0d150d !important;
+    border: 1px solid #1e3a1e !important;
+    color: #e2e8f0 !important;
+    border-radius: 0.875rem !important;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3) !important;
     transition: all 0.2s ease !important;
   }
-  
+
+  .glass-input::placeholder {
+    color: #374151 !important;
+  }
+
   .glass-input:focus {
-    border-color: #2563eb !important;
+    border-color: #10b981 !important;
     outline: none;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15), inset 0 1px 3px rgba(0, 0, 0, 0.3) !important;
   }
 }
-
-
-

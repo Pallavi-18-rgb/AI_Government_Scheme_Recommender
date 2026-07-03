@@ -111,9 +111,9 @@ const SearchSchemes = () => {
     return (
         <div className="animate-in fade-in duration-500 pb-24">
             {/* Header & Global Search */}
-            <div className="flex flex-col md:flex-row justify-between items-end mb-8 border-b border-slate-800 pb-6">
+            <div className="glass-panel p-8 flex flex-col lg:flex-row justify-between items-end mb-8 border border-slate-800/60 shadow-[0_24px_70px_rgba(2,12,27,0.3)] rounded-[2rem]">
                 <div>
-                    <p className="text-cyan-500 font-mono text-sm tracking-widest uppercase mb-1">Global Scheme Directory</p>
+                    <p className="text-cyan-400 font-mono text-sm tracking-widest uppercase mb-2">Global Scheme Directory</p>
                     <h1 className="text-4xl font-black text-white tracking-tight">Database <span className="text-slate-500 font-light">| SEARCH</span></h1>
                 </div>
                 <div className="mt-6 md:mt-0 relative w-full md:w-96">
@@ -123,7 +123,7 @@ const SearchSchemes = () => {
                     <input 
                         type="text" 
                         placeholder="Search schemes or benefits..." 
-                        className="glass-input w-full pl-12 p-4 text-white"
+                        className="glass-input w-full pl-12 p-4 text-white bg-slate-950/80 border border-slate-800/50 rounded-3xl"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -131,10 +131,10 @@ const SearchSchemes = () => {
             </div>
 
             {/* Advanced Filters */}
-            <div className="glass-panel p-6 mb-8 grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="glass-panel p-6 mb-8 grid grid-cols-1 md:grid-cols-4 gap-4 border border-slate-800/60 rounded-[1.75rem] shadow-[0_18px_48px_rgba(2,12,27,0.22)]">
                 <div>
                     <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide flex items-center"><Filter className="w-3 h-3 mr-1"/> Category</label>
-                    <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} className="glass-input w-full p-3 bg-slate-800 text-sm">
+                    <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} className="glass-input w-full p-3 bg-slate-950/80 border border-slate-800/50 text-sm rounded-3xl">
                         {uniqueCategories.map(c => <option key={c} value={c}>{c}</option>)}
                     </select>
                 </div>
@@ -181,7 +181,7 @@ const SearchSchemes = () => {
                         {filteredSchemes.map(scheme => {
                             const isComparing = comparisonList.find(s => s.id === scheme.id);
                             return (
-                                <div key={scheme.id} className={`glass-panel p-6 flex flex-col transition-all group cursor-pointer ${isComparing ? 'ring-2 ring-cyan-500 bg-cyan-950/20' : 'hover:border-cyan-500/50'}`} onClick={() => setSelectedScheme(scheme)}>
+                                <div key={scheme.id} className={`glass-panel p-6 flex flex-col transition-all group cursor-pointer border border-slate-800/50 rounded-[1.75rem] shadow-[0_16px_40px_rgba(3,26,56,0.24)] ${isComparing ? 'ring-2 ring-cyan-500 bg-cyan-950/20' : 'hover:border-cyan-500/50'}`} onClick={() => setSelectedScheme(scheme)}>
                                     <div className="flex justify-between items-start mb-4">
                                         <span className="text-[10px] font-bold uppercase tracking-widest text-cyan-400 bg-cyan-900/30 px-2 py-1 rounded border border-cyan-800">
                                             {scheme.category || 'General'}
@@ -220,9 +220,9 @@ const SearchSchemes = () => {
 
             {/* Scheme Detail Modal */}
             {selectedScheme && (
-                <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="glass-panel w-full max-w-4xl max-h-[90vh] overflow-y-auto border-cyan-500 relative animate-in zoom-in-95 duration-200 flex flex-col md:flex-row">
-                        <button onClick={() => setSelectedScheme(null)} className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors bg-slate-800 rounded-full p-2 z-10">
+                <div className="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <div className="glass-panel w-full max-w-4xl max-h-[90vh] overflow-y-auto border border-cyan-500/30 bg-slate-950/95 rounded-[2rem] relative animate-in zoom-in-95 duration-200 flex flex-col md:flex-row shadow-[0_30px_80px_rgba(2,12,27,0.35)]">
+                        <button onClick={() => setSelectedScheme(null)} className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors bg-slate-800/90 rounded-full p-2 z-10">
                             <X className="w-5 h-5" />
                         </button>
                         
@@ -316,7 +316,7 @@ const SearchSchemes = () => {
                                     onChange={(e) => setNewReview({...newReview, review: e.target.value})}
                                     required
                                 ></textarea>
-                                <button type="submit" className="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold uppercase text-xs tracking-widest py-3 rounded transition-colors">Submit Review</button>
+<button type="submit" className="w-full glass-button text-white font-bold uppercase text-xs tracking-widest py-3 rounded-2xl">Submit Review</button>
                             </form>
 
                             <div className="flex-1 overflow-y-auto space-y-4 scrollbar-thin scrollbar-thumb-slate-800 pr-2">

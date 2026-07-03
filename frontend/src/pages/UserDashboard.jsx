@@ -77,10 +77,11 @@ const UserDashboard = () => {
     return (
         <div className="space-y-8 animate-in fade-in duration-500 pb-12">
             {/* HUD Header */}
-            <div className="flex justify-between items-end border-b border-slate-800 pb-4">
+            <div className="glass-panel p-8 flex flex-col lg:flex-row justify-between items-end gap-6 border border-slate-800/60 shadow-[0_24px_80px_rgba(2,12,27,0.35)] rounded-[2rem]">
                 <div>
-                    <p className="text-cyan-500 font-mono text-sm tracking-widest uppercase mb-1">Authenticated User</p>
+                    <p className="text-cyan-400 font-mono text-sm tracking-widest uppercase mb-2">Authenticated User</p>
                     <h1 className="text-4xl font-black text-white tracking-tight">{profile.name} <span className="text-slate-500 font-light">| COMMAND CENTER</span></h1>
+                    <p className="mt-4 text-slate-400 text-sm max-w-xl leading-relaxed">Your personalized scheme control panel for focused eligibility recommendations, deadlines, and application readiness.</p>
                 </div>
                 <div className="text-right">
                     <p className="text-slate-500 font-mono text-xs">SYSTEM STATUS</p>
@@ -169,7 +170,7 @@ const UserDashboard = () => {
                 </div>
 
                 {/* AI Recommendations & Stats Widget */}
-                <div className="glass-panel p-8 md:col-span-2 border-t-2 border-t-cyan-500 flex flex-col relative overflow-hidden">
+                <div className="glass-panel p-8 md:col-span-2 border border-slate-800/60 shadow-[0_24px_70px_rgba(2,12,27,0.25)] rounded-[2rem] relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-600/10 blur-[80px] rounded-full pointer-events-none -z-10"></div>
                     
                     <div className="flex items-center justify-between mb-6 border-b border-slate-800/60 pb-4">
@@ -180,23 +181,23 @@ const UserDashboard = () => {
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                        <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-800 flex items-center justify-between">
+                        <div className="glass-panel p-4 rounded-3xl border border-slate-800/50 flex items-center justify-between">
                             <div>
                                 <p className="text-[9px] text-slate-500 uppercase tracking-widest mb-1 font-bold">Eligible</p>
                                 <p className="text-2xl font-black text-white">{stats.eligibleSchemes}</p>
                             </div>
-                            <Activity className="w-6 h-6 text-cyan-900" />
+                            <Activity className="w-6 h-6 text-cyan-400" />
                         </div>
-                        <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-800 flex items-center justify-between">
+                        <div className="glass-panel p-4 rounded-3xl border border-slate-800/50 flex items-center justify-between">
                             <div>
                                 <p className="text-[9px] text-slate-500 uppercase tracking-widest mb-1 font-bold">Saved</p>
                                 <p className="text-2xl font-black text-white">{stats.savedSchemes}</p>
                             </div>
-                            <Bookmark className="w-6 h-6 text-cyan-900" />
+                            <Bookmark className="w-6 h-6 text-cyan-400" />
                         </div>
                         
                         {/* Documents Alert */}
-                        <div className={`col-span-2 p-4 rounded-lg border flex flex-col justify-center relative group overflow-hidden ${stats.readiness?.missingDocuments?.length > 0 ? 'bg-slate-900/40 border-slate-800' : 'bg-green-950/20 border-green-900/50'}`}>
+                        <div className={`glass-panel col-span-2 p-4 rounded-3xl border flex flex-col justify-center relative group overflow-hidden ${stats.readiness?.missingDocuments?.length > 0 ? 'bg-slate-900/40 border-slate-800/50' : 'bg-green-950/20 border-green-900/50'}`}>
                             {stats.readiness?.missingDocuments?.length > 0 && <div className="absolute inset-0 bg-gradient-to-r from-red-950/10 to-transparent opacity-50 z-0"></div>}
                             <div className="relative z-10">
                                 <div className="flex justify-between items-start mb-2">
