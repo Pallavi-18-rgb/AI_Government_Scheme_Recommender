@@ -74,24 +74,24 @@ const Layout = ({ children }) => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    const isActive = (path) => location.pathname === path ? 'bg-emerald-900/40 text-emerald-400 border-r-2 border-emerald-400' : 'text-slate-400 hover:bg-emerald-900/20 hover:text-emerald-300';
+    const isActive = (path) => location.pathname === path ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-600 font-semibold' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800';
     
     const unreadCount = notifications.filter(n => !n.read_status).length;
 
     if (token) {
         return (
-            <div className="flex flex-col h-screen bg-[#0a0f0a] text-slate-100 overflow-hidden font-sans">
+            <div className="flex flex-col h-screen bg-[#eef3f8] text-slate-800 overflow-hidden font-sans">
                 {/* Department Branding Header */}
-                <div className="bg-emerald-950/60 border-b border-emerald-900/50 text-center py-3 flex-shrink-0 z-30 tracking-wide shadow-[0_2px_12px_rgba(16,185,129,0.08)]">
-                    <div className="text-sm font-black uppercase tracking-widest text-emerald-300">P.E.S. College of Engineering, Mandya</div>
-                    <div className="text-xs font-semibold text-emerald-500/80 mt-0.5">Department of Computer Science and Engineering (Data Science)</div>
+                <div className="bg-[#1a3a6b] text-center py-2.5 flex-shrink-0 z-30 tracking-wide">
+                    <div className="text-sm font-bold uppercase tracking-widest text-white">P.E.S. College of Engineering, Mandya</div>
+                    <div className="text-xs font-medium text-blue-200 mt-0.5">Department of Computer Science and Engineering (Data Science)</div>
                 </div>
                 <div className="flex flex-1 overflow-hidden">
                 {/* Sidebar */}
-                <aside className="w-72 flex-shrink-0 bg-[#0d150d] border-r border-emerald-900/40 flex flex-col z-20">
-                    <div className="h-24 flex flex-col justify-center px-6 border-b border-emerald-900/40">
-                        <span className="text-2xl font-black tracking-tight text-white">GovScheme<span className="text-emerald-400">AI</span></span>
-                        <span className="text-xs text-emerald-600 mt-1 uppercase tracking-[0.18em] font-medium">AI Welfare Assistant</span>
+                <aside className="w-72 flex-shrink-0 bg-white border-r border-[#d0dce8] flex flex-col z-20 shadow-sm">
+                    <div className="h-24 flex flex-col justify-center px-6 border-b border-[#d0dce8] bg-gradient-to-br from-[#1a3a6b] to-[#1a56db]">
+                        <span className="text-2xl font-black tracking-tight text-white">GovScheme<span className="text-yellow-300">AI</span></span>
+                        <span className="text-xs text-blue-200 mt-1 uppercase tracking-[0.15em] font-medium">AI Welfare Assistant</span>
                     </div>
                     <nav className="flex-1 px-4 py-8 space-y-2 overflow-y-auto">
                         <Link to="/dashboard" className={`flex items-center px-4 py-3 rounded-2xl font-medium transition-all duration-300 ${isActive('/dashboard')}`}>
@@ -199,14 +199,14 @@ const Layout = ({ children }) => {
 
     // Public Top Navbar Layout
     return (
-        <div className="min-h-screen bg-[#0a0f0a] text-slate-100 flex flex-col font-sans">
+        <div className="min-h-screen bg-[#eef3f8] text-slate-800 flex flex-col font-sans">
             {/* Department Branding Header */}
-            <div className="bg-emerald-950/60 border-b border-emerald-900/50 text-center py-3 flex-shrink-0 z-50 tracking-wide shadow-[0_2px_12px_rgba(16,185,129,0.08)]">
-                <div className="text-sm font-black uppercase tracking-widest text-emerald-300">P.E.S. College of Engineering, Mandya</div>
-                <div className="text-xs font-semibold text-emerald-500/80 mt-0.5">Department of Computer Science and Engineering (Data Science)</div>
+            <div className="bg-[#1a3a6b] text-center py-2.5 flex-shrink-0 z-50 tracking-wide">
+                <div className="text-sm font-bold uppercase tracking-widest text-white">P.E.S. College of Engineering, Mandya</div>
+                <div className="text-xs font-medium text-blue-200 mt-0.5">Department of Computer Science and Engineering (Data Science)</div>
             </div>
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(16,185,129,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.02)_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none -z-10"></div>
-            <nav className="rounded-none border-b border-emerald-900/40 sticky top-0 z-50 bg-[#0d150d]/95 backdrop-blur-sm">
+            <div className="absolute inset-0 pointer-events-none -z-10"></div>
+            <nav className="rounded-none border-b border-[#d0dce8] sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="flex justify-between h-20 items-center">
                         <div className="flex items-center">
