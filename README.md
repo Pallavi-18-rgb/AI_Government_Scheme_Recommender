@@ -80,8 +80,3 @@ docker-compose down
 | Page not loading | Wait 2 more minutes, then refresh the browser |
 | Login not working | Use `newtest@gmail.com` / `password` or register a new account |
 | Database error | Run `docker-compose down` then `docker-compose up -d` again |
-
----
-
-## 📞 Contact
-If you face any issues, contact **Pallavi N** for help.
