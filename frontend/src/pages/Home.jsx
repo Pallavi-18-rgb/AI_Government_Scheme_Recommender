@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Search, ShieldCheck, Bell } from 'lucide-react';
+import { ArrowRight, CheckCircle, Search, ShieldCheck, Bell, Users, Zap, FileText, ChevronRight } from 'lucide-react';
 import axios from 'axios';
 
 const Home = () => {
@@ -18,75 +18,92 @@ const Home = () => {
                             const daysLeft = Math.ceil((new Date(s.deadline) - new Date()) / (1000 * 60 * 60 * 24));
                             return daysLeft;
                         })
-                        .filter(daysLeft => daysLeft > 0 && daysLeft <= 14); // Next 14 days
+                        .filter(daysLeft => daysLeft > 0 && daysLeft <= 14);
                     setDeadlinesCount(upcoming.length);
                 }).catch(console.error);
         }
     }, [token]);
 
     return (
-        <div className="flex flex-col items-center min-h-[80vh] pb-16 px-4 sm:px-6 bg-slate-50">
+        <div className="flex flex-col items-center min-h-[80vh] pb-20 px-4 sm:px-6" style={{backgroundColor: '#eef3f8'}}>
+
             {/* Hero Section */}
-            <section className="w-full max-w-7xl mx-auto py-16">
-                <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] items-center">
+            <section className="w-full max-w-7xl mx-auto pt-12 pb-10">
+                <div className="grid gap-10 lg:grid-cols-[1.3fr_0.7fr] items-start">
+
+                    {/* Left: Text */}
                     <div>
-                        <p className="text-sm uppercase tracking-[0.35em] text-sky-600 font-semibold mb-4">Government Welfare Assistant</p>
-                        <h1 className="text-5xl md:text-6xl font-black text-slate-950 leading-tight">Find the right government schemes with confidence.</h1>
-                        <p className="mt-6 text-lg text-slate-600 max-w-2xl leading-relaxed">GovSchemeAI helps citizens discover verified welfare programs, eligibility matches, and application steps in one modern, accessible platform.</p>
-                        <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                            <Link to="/login" className="glass-button inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-full shadow-[0_18px_40px_rgba(37,99,235,0.16)]">
-                                Get Started <ArrowRight className="ml-2 w-5 h-5" />
+                        <span className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-blue-700 bg-blue-50 border border-blue-200 rounded-full px-4 py-1.5 mb-5">
+                            <ShieldCheck className="w-3.5 h-3.5" /> Official Government Welfare Assistant
+                        </span>
+                        <h1 className="text-5xl md:text-6xl font-black leading-tight mb-5" style={{color: '#0d1f3c'}}>
+                            Discover welfare<br />
+                            <span style={{color: '#1a56db'}}>schemes made</span><br />
+                            for you & your family.
+                        </h1>
+                        <p className="text-lg leading-relaxed max-w-xl mb-8" style={{color: '#3d5473'}}>
+                            GovSchemeAI uses AI to match your profile — income, occupation, state, category — with verified government programs, and explains every decision transparently.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-3 mb-12">
+                            <Link to="/login" className="glass-button inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold rounded-xl">
+                                Get Started Free <ArrowRight className="ml-2 w-5 h-5" />
                             </Link>
-                            <Link to="/search" className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-full border border-slate-200 bg-white text-slate-900 hover:bg-slate-100 transition-colors shadow-sm">
-                                Explore Schemes
+                            <Link to="/search" className="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold rounded-xl border-2 border-blue-200 bg-white text-blue-700 hover:bg-blue-50 transition-all duration-200 shadow-sm">
+                                Browse Schemes <ChevronRight className="ml-1 w-5 h-5" />
                             </Link>
                         </div>
-                        <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4">
-                            <div className="rounded-3xl bg-white border border-slate-200 p-5 shadow-sm">
-                                <p className="text-xs uppercase tracking-[0.3em] text-slate-400 mb-2">Trusted</p>
-                                <p className="text-3xl font-bold text-slate-950">100%</p>
-                                <p className="text-sm text-slate-500 mt-1">Official scheme sources</p>
-                            </div>
-                            <div className="rounded-3xl bg-white border border-slate-200 p-5 shadow-sm">
-                                <p className="text-xs uppercase tracking-[0.3em] text-slate-400 mb-2">Awarded</p>
-                                <p className="text-3xl font-bold text-slate-950">AI</p>
-                                <p className="text-sm text-slate-500 mt-1">Smart eligibility matching</p>
-                            </div>
-                            <div className="rounded-3xl bg-white border border-slate-200 p-5 shadow-sm">
-                                <p className="text-xs uppercase tracking-[0.3em] text-slate-400 mb-2">Support</p>
-                                <p className="text-3xl font-bold text-slate-950">24/7</p>
-                                <p className="text-sm text-slate-500 mt-1">Guidance for every citizen</p>
-                            </div>
-                            <div className="rounded-3xl bg-white border border-slate-200 p-5 shadow-sm">
-                                <p className="text-xs uppercase tracking-[0.3em] text-slate-400 mb-2">Secure</p>
-                                <p className="text-3xl font-bold text-slate-950">High</p>
-                                <p className="text-sm text-slate-500 mt-1">Privacy-first experience</p>
-                            </div>
+
+                        {/* Stats Row */}
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            {[
+                                { label: 'Official Sources', value: '100%', sub: 'Verified data' },
+                                { label: 'AI Matching', value: 'Smart', sub: 'Explainable AI' },
+                                { label: 'Support', value: '24/7', sub: 'Chatbot assistance' },
+                                { label: 'Security', value: 'JWT', sub: 'Secure & private' },
+                            ].map((stat, i) => (
+                                <div key={i} className="bg-white border border-blue-100 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-200">
+                                    <p className="text-[10px] uppercase tracking-widest font-bold mb-1" style={{color: '#6b8299'}}>{stat.label}</p>
+                                    <p className="text-2xl font-black" style={{color: '#1a56db'}}>{stat.value}</p>
+                                    <p className="text-xs mt-1" style={{color: '#6b8299'}}>{stat.sub}</p>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
-                    <div className="rounded-[2rem] bg-white border border-slate-200 p-8 shadow-xl">
-                        <div className="flex items-center justify-between mb-8">
-                            <div>
-                                <p className="text-sm uppercase tracking-[0.3em] text-slate-400">Platform overview</p>
-                                <h2 className="text-2xl font-bold text-slate-950 mt-2">Your welfare dashboard</h2>
-                            </div>
-                            <div className="rounded-2xl bg-sky-50 text-sky-600 p-3">
-                                <Bell className="w-5 h-5" />
+                    {/* Right: Dashboard Preview Card */}
+                    <div className="bg-white border border-blue-100 rounded-3xl shadow-xl overflow-hidden">
+                        {/* Card Header */}
+                        <div className="px-6 py-5 border-b border-blue-50" style={{background: 'linear-gradient(135deg, #1a3a6b 0%, #1a56db 100%)'}}>
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="text-xs font-semibold tracking-widest text-blue-200 uppercase">Platform Overview</p>
+                                    <h2 className="text-xl font-bold text-white mt-1">Your Welfare Dashboard</h2>
+                                </div>
+                                <div className="bg-white/20 rounded-xl p-2.5">
+                                    <Bell className="w-5 h-5 text-white" />
+                                </div>
                             </div>
                         </div>
-                        <div className="space-y-5">
-                            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
-                                <p className="text-xs uppercase tracking-[0.3em] text-slate-400 mb-3">Top Recommendation</p>
-                                <p className="text-lg font-semibold text-slate-900">Find the best scheme fit based on your profile and family details.</p>
+
+                        {/* Card Body */}
+                        <div className="p-6 space-y-4">
+                            <div className="rounded-2xl border border-blue-100 bg-blue-50 p-4">
+                                <p className="text-[10px] uppercase tracking-widest font-bold text-blue-500 mb-2">Top Recommendation</p>
+                                <p className="text-sm font-semibold text-slate-800">Find the best scheme fit based on your profile and family details.</p>
+                                <div className="flex items-center gap-2 mt-3">
+                                    <span className="text-[10px] bg-blue-600 text-white px-2.5 py-1 rounded-full font-bold">MATCH: 100%</span>
+                                    <span className="text-[10px] bg-green-100 text-green-700 px-2.5 py-1 rounded-full font-bold">✓ Eligible</span>
+                                </div>
                             </div>
-                            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
-                                <p className="text-xs uppercase tracking-[0.3em] text-slate-400 mb-3">Quick Actions</p>
-                                <div className="grid grid-cols-2 gap-3">
-                                    <button className="text-left rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-900 hover:bg-slate-100 transition">Update Profile</button>
-                                    <button className="text-left rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-900 hover:bg-slate-100 transition">Search Schemes</button>
-                                    <button className="text-left rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-900 hover:bg-slate-100 transition">View Analytics</button>
-                                    <button className="text-left rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-900 hover:bg-slate-100 transition">Ask AI Assistant</button>
+
+                            <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                                <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-3">Quick Actions</p>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {['Update Profile', 'Search Schemes', 'View Analytics', 'Ask AI Assistant'].map((action, i) => (
+                                        <button key={i} className="text-left rounded-xl border border-slate-200 bg-white p-3 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:border-blue-200 hover:text-blue-700 transition-all duration-200">
+                                            {action}
+                                        </button>
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -94,28 +111,47 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Features */}
-            <section className="w-full max-w-7xl mx-auto grid gap-8 lg:grid-cols-3">
-                <div className="rounded-[2rem] bg-white border border-slate-200 p-8 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-sky-50 text-sky-600 mb-6">
-                        <CheckCircle className="w-8 h-8" />
-                    </div>
-                    <h3 className="text-2xl font-semibold text-slate-950 mb-3">Smart Eligibility</h3>
-                    <p className="text-slate-600 leading-relaxed">Match quickly with programs that suit your household status, income, and occupation.</p>
+            {/* Features Section */}
+            <section className="w-full max-w-7xl mx-auto">
+                <div className="text-center mb-10">
+                    <p className="text-xs uppercase tracking-widest font-bold text-blue-600 mb-2">Why GovSchemeAI?</p>
+                    <h2 className="text-3xl font-black" style={{color: '#0d1f3c'}}>Everything you need in one place</h2>
                 </div>
-                <div className="rounded-[2rem] bg-white border border-slate-200 p-8 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-violet-50 text-violet-600 mb-6">
-                        <Search className="w-8 h-8" />
-                    </div>
-                    <h3 className="text-2xl font-semibold text-slate-950 mb-3">Verified Search</h3>
-                    <p className="text-slate-600 leading-relaxed">Search government schemes with filters for state, occupation, category, and eligibility.</p>
-                </div>
-                <div className="rounded-[2rem] bg-white border border-slate-200 p-8 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-emerald-50 text-emerald-600 mb-6">
-                        <ShieldCheck className="w-8 h-8" />
-                    </div>
-                    <h3 className="text-2xl font-semibold text-slate-950 mb-3">Trusted Source</h3>
-                    <p className="text-slate-600 leading-relaxed">Every recommendation is based on official program details and real eligibility rules.</p>
+                <div className="grid gap-6 lg:grid-cols-3">
+                    {[
+                        {
+                            icon: <CheckCircle className="w-7 h-7" />,
+                            iconBg: 'bg-blue-50',
+                            iconColor: 'text-blue-600',
+                            borderColor: 'border-t-blue-500',
+                            title: 'Smart Eligibility',
+                            desc: 'Match quickly with programs that suit your household status, income, occupation, caste category, and state.',
+                        },
+                        {
+                            icon: <Search className="w-7 h-7" />,
+                            iconBg: 'bg-violet-50',
+                            iconColor: 'text-violet-600',
+                            borderColor: 'border-t-violet-500',
+                            title: 'Verified Search',
+                            desc: 'Search government schemes with filters for state, occupation, category, and eligibility criteria.',
+                        },
+                        {
+                            icon: <Users className="w-7 h-7" />,
+                            iconBg: 'bg-emerald-50',
+                            iconColor: 'text-emerald-600',
+                            borderColor: 'border-t-emerald-500',
+                            title: 'Family Coverage',
+                            desc: 'Add your entire family and discover welfare schemes that each member individually qualifies for.',
+                        },
+                    ].map((f, i) => (
+                        <div key={i} className={`bg-white border border-slate-200 ${f.borderColor} border-t-4 rounded-2xl p-7 shadow-sm hover:shadow-md hover:border-opacity-80 transition-all duration-200 hover:-translate-y-1`}>
+                            <div className={`inline-flex h-14 w-14 items-center justify-center rounded-2xl ${f.iconBg} ${f.iconColor} mb-5`}>
+                                {f.icon}
+                            </div>
+                            <h3 className="text-xl font-bold mb-3" style={{color: '#0d1f3c'}}>{f.title}</h3>
+                            <p className="leading-relaxed text-sm" style={{color: '#3d5473'}}>{f.desc}</p>
+                        </div>
+                    ))}
                 </div>
             </section>
         </div>
