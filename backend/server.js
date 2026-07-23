@@ -26,6 +26,7 @@ const documentRoutes = require('./routes/documents');
 const notificationRoutes = require('./routes/notifications');
 const powerbiRoutes = require('./routes/powerbi');
 const familyRoutes = require('./routes/family');
+const applicationRoutes = require('./routes/applications');
 
 // Use Routes
 app.use('/api/auth', authRoutes);
@@ -38,6 +39,7 @@ app.use('/api/admin', require('./middleware/auth'), adminRoutes);
 app.use('/api/notifications', require('./middleware/auth'), notificationRoutes);
 app.use('/api/powerbi', powerbiRoutes);
 app.use('/api/family', familyRoutes);
+app.use('/api/applications', applicationRoutes);
 
 app.get('/', (req, res) => {
   res.send('Digital Welfare Assistant API is running');
