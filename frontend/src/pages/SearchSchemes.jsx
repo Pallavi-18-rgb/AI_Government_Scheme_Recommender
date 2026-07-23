@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Search, Filter, X, ChevronDown, Bookmark, ExternalLink, Star, ArrowRightLeft, MessageSquare } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const SearchSchemes = () => {
+    const { t } = useLanguage();
     const [schemes, setSchemes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -112,20 +114,20 @@ const SearchSchemes = () => {
         <div className="animate-in fade-in duration-500 pb-24">
             {/* Header & Global Search */}
             <div className="glass-panel p-8 flex flex-col lg:flex-row justify-between items-end mb-8 border border-slate-800/60 shadow-[0_24px_70px_rgba(2,12,27,0.3)] rounded-[2rem]">
-                <div>
-                    <p className="text-cyan-400 font-mono text-sm tracking-widest uppercase mb-2">Global Scheme Directory</p>
-                    <h1 className="text-4xl font-black text-white tracking-tight">Database <span className="text-slate-500 font-light">| SEARCH</span></h1>
+                <div className="mb-10 text-center relative z-10">
+                    <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">{t('searchTitle') || 'Scheme Directory'}</h1>
+                    <p className="text-slate-400 max-w-2xl mx-auto mb-8 text-lg font-light">Explore government initiatives tailored for citizens across sectors.</p>
                 </div>
-                <div className="mt-6 md:mt-0 relative w-full md:w-96">
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <div className="relative max-w-3xl mx-auto flex w-full md:w-96">
+                    <div className="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
                         <Search className="h-5 w-5 text-cyan-500" />
                     </div>
                     <input 
                         type="text" 
-                        placeholder="Search schemes or benefits..." 
-                        className="glass-input w-full pl-12 p-4 text-white bg-slate-950/80 border border-slate-800/50 rounded-3xl"
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onChange={e => setSearchTerm(e.target.value)}
+                        className="glass-input w-full pl-14 pr-8 py-5 text-lg rounded-full bg-slate-900/80 border-slate-700 focus:border-cyan-500 focus:ring-cyan-500/20 text-white" 
+                        placeholder={t('searchPlaceholder') || 'Search schemes or benefits...'}
                     />
                 </div>
             </div>
@@ -139,9 +141,9 @@ const SearchSchemes = () => {
                     </select>
                 </div>
                 <div>
-                    <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide">State</label>
+                    <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide">{t('filterByState') || 'State'}</label>
                     <select value={stateFilter} onChange={(e) => setStateFilter(e.target.value)} className="glass-input w-full p-3 bg-slate-800 text-sm">
-                        <option value="All">All States (Central)</option>
+                        <option value="All">{t('allStates') || 'All States (Central)'}</option>
                         <option value="Andhra Pradesh">Andhra Pradesh</option>
                         <option value="Arunachal Pradesh">Arunachal Pradesh</option>
                         <option value="Assam">Assam</option>

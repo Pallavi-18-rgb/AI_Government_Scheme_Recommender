@@ -59,14 +59,20 @@ def recommend():
                 explanation_parts.append("Your gender aligns with the scheme requirements.")
 
             # Occupation check
-            scheme_occ = str(scheme['occupation']).lower()
-            user_occ = str(user_data.get('occupation', '')).lower()
+            scheme_occ = str(scheme['occupation']).lower().strip()
+            user_occ = str(user_data.get('occupation', '')).lower().strip()
+            
+            occ_mismatch = False
             if scheme_occ in ['any', 'all']:
                 score += 0.8
-                explanation_parts.append("Your occupation matches the general target group.")
-            elif user_occ and user_occ in scheme_occ:
+                explanation_parts.append("The scheme is open to all occupations.")
+            elif user_occ and (user_occ in scheme_occ or scheme_occ in user_occ):
                 score += 1.5 # Boost for specific occupation match
                 explanation_parts.append("This scheme specifically targets your occupation.")
+            else:
+                # Specific occupation required (e.g. Farmer) but user is Student -> Reject
+                occ_mismatch = True
+                explanation_parts.append(f"Occupation '{user_data.get('occupation', '')}' does not match required occupation '{scheme['occupation']}'.")
 
             # Income check (Parse specific limits like '< ₹8 Lakh')
             scheme_income = str(scheme['income_limit']).lower()
@@ -97,7 +103,7 @@ def recommend():
             eligibility_percentage = min((score / total_criteria) * 100, 100.0)
             confidence_score = eligibility_percentage * 0.9 # Just a mock AI confidence heuristic
             
-            if eligibility_percentage >= 50:
+            if not occ_mismatch and eligibility_percentage >= 50:
                 recommendations.append({
                     "scheme_id": scheme['id'],
                     "scheme_name": scheme['scheme_name'],

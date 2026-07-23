@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ShieldAlert, TrendingUp, Bell, ChevronRight, Activity, Target, Bookmark, AlertCircle, CheckCircle2, FileText, Calendar, ArrowRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const UserDashboard = () => {
+    const { t } = useLanguage();
     const [profile, setProfile] = useState(null);
     const [recommendations, setRecommendations] = useState([]);
     const [deadlines, setDeadlines] = useState([]);
@@ -115,7 +117,7 @@ const UserDashboard = () => {
                         </div>
                         <div>
                             <div className="flex items-center text-purple-400 mb-2 font-mono text-xs uppercase tracking-widest">
-                                <TrendingUp className="mr-2 w-4 h-4" /> Profile Readiness
+                                <TrendingUp className="mr-2 w-4 h-4" /> {t('readinessScore')}
                             </div>
                             
                             <div className="flex items-end space-x-2">
@@ -183,14 +185,14 @@ const UserDashboard = () => {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                         <div className="glass-panel p-4 rounded-3xl border border-slate-800/50 flex items-center justify-between">
                             <div>
-                                <p className="text-[9px] text-slate-500 uppercase tracking-widest mb-1 font-bold">Eligible</p>
+                                <p className="text-[9px] text-slate-500 uppercase tracking-widest mb-1 font-bold">{t('eligibleSchemes')}</p>
                                 <p className="text-2xl font-black text-white">{stats.eligibleSchemes}</p>
                             </div>
                             <Activity className="w-6 h-6 text-cyan-400" />
                         </div>
                         <div className="glass-panel p-4 rounded-3xl border border-slate-800/50 flex items-center justify-between">
                             <div>
-                                <p className="text-[9px] text-slate-500 uppercase tracking-widest mb-1 font-bold">Saved</p>
+                                <p className="text-[9px] text-slate-500 uppercase tracking-widest mb-1 font-bold">{t('savedSchemes')}</p>
                                 <p className="text-2xl font-black text-white">{stats.savedSchemes}</p>
                             </div>
                             <Bookmark className="w-6 h-6 text-cyan-400" />

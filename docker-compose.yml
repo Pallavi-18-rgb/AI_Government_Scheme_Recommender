@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-rootpassword}
-      MYSQL_DATABASE: ${DB_NAME:-welfare_assistant}
+      MYSQL_DATABASE: ${DB_NAME:-govschemes}
     ports:
       - "3306:3306"
     volumes:
@@ -24,7 +24,7 @@ services:
       DB_HOST: db
       DB_USER: root
       DB_PASSWORD: ${DB_PASSWORD:-rootpassword}
-      DB_NAME: ${DB_NAME:-welfare_assistant}
+      DB_NAME: ${DB_NAME:-govschemes}
       JWT_SECRET: ${JWT_SECRET:-super_secret_dev_key}
       AI_SERVICE_URL: http://ai_module:5001
     ports:
@@ -42,7 +42,7 @@ services:
       DB_HOST: db
       DB_USER: root
       DB_PASSWORD: ${DB_PASSWORD:-rootpassword}
-      DB_NAME: ${DB_NAME:-welfare_assistant}
+      DB_NAME: ${DB_NAME:-govschemes}
     ports:
       - "5001:5001"
     depends_on:

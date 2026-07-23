@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Home, Search, LayoutDashboard, LogOut, User, Users, CheckSquare, ShieldAlert, Bell, Sun, Moon, Palette, Globe, FileCheck, FileText, ChevronDown } from 'lucide-react';
 import Chatbot from './Chatbot';
 import { useLanguage } from '../context/LanguageContext';
-import { useTheme, themePresets } from '../context/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 
 const Layout = ({ children }) => {
     const token = localStorage.getItem('token');
@@ -11,16 +11,14 @@ const Layout = ({ children }) => {
     const location = useLocation();
 
     const { t, lang, changeLanguage } = useLanguage();
-    const { theme, changeTheme, isDarkMode, toggleDarkMode, activePreset } = useTheme();
+    const { theme, toggleTheme } = useTheme();
 
     const [isAdmin, setIsAdmin] = useState(false);
     const [notifications, setNotifications] = useState([]);
     const [showNotifications, setShowNotifications] = useState(false);
-    const [showThemePicker, setShowThemePicker] = useState(false);
     const [showLangPicker, setShowLangPicker] = useState(false);
 
     const notificationRef = useRef(null);
-    const themeRef = useRef(null);
     const langRef = useRef(null);
 
     const handleLogout = () => {
@@ -72,9 +70,6 @@ const Layout = ({ children }) => {
             if (notificationRef.current && !notificationRef.current.contains(event.target)) {
                 setShowNotifications(false);
             }
-            if (themeRef.current && !themeRef.current.contains(event.target)) {
-                setShowThemePicker(false);
-            }
             if (langRef.current && !langRef.current.contains(event.target)) {
                 setShowLangPicker(false);
             }
@@ -84,7 +79,7 @@ const Layout = ({ children }) => {
     }, []);
 
     const isActive = (path) => location.pathname === path 
-        ? `${activePreset.accentBg} font-bold border-r-4 border-blue-600 shadow-sm` 
+        ? `bg-blue-50 font-bold border-r-4 border-blue-600 shadow-sm text-blue-700` 
         : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900';
 
     const unreadCount = notifications.filter(n => !n.read_status).length;
@@ -110,7 +105,7 @@ const Layout = ({ children }) => {
                 <div className="flex flex-1 overflow-hidden">
                     {/* Sidebar */}
                     <aside className="w-72 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col z-20 shadow-sm">
-                        <div className="h-24 flex flex-col justify-center px-6 border-b border-slate-200 text-white transition-all duration-500" style={{ background: 'var(--header-bg)' }}>
+                        <div className="h-24 flex flex-col justify-center px-6 border-b border-slate-200 text-white transition-all duration-500 bg-[#1a3a6b]">
                             <span className="text-2xl font-black tracking-tight text-white">GovScheme<span className="text-yellow-300">AI</span></span>
                             <span className="text-xs text-blue-100 mt-1 uppercase tracking-[0.15em] font-medium">AI Welfare Assistant</span>
                         </div>
@@ -194,49 +189,13 @@ const Layout = ({ children }) => {
                                     )}
                                 </div>
 
-                                {/* Theme Customizer */}
-                                <div className="relative" ref={themeRef}>
-                                    <button
-                                        onClick={() => setShowThemePicker(!showThemePicker)}
-                                        className="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 shadow-sm hover:bg-slate-100 transition-colors"
-                                        title="Customize Theme"
-                                    >
-                                        <Palette className="w-4 h-4 text-purple-600" />
-                                    </button>
-                                    {showThemePicker && (
-                                        <div className="absolute right-0 mt-2 w-64 bg-white border border-slate-200 rounded-2xl shadow-xl z-50 p-4 space-y-3">
-                                            <p className="text-xs font-bold text-slate-900 uppercase tracking-wider">{t('selectTheme')}</p>
-                                            <div className="grid grid-cols-1 gap-2">
-                                                {Object.values(themePresets).map(preset => (
-                                                    <button
-                                                        key={preset.id}
-                                                        onClick={() => {
-                                                            changeTheme(preset.id);
-                                                            setShowThemePicker(false);
-                                                        }}
-                                                        className={`flex items-center justify-between p-2.5 rounded-xl border text-xs font-semibold transition-all ${
-                                                            theme === preset.id ? 'border-blue-500 bg-blue-50/50 text-blue-900 font-bold' : 'border-slate-100 hover:bg-slate-50'
-                                                        }`}
-                                                    >
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="w-4 h-4 rounded-full border shadow-sm" style={{ backgroundColor: preset.previewHex }}></span>
-                                                            <span>{preset.name}</span>
-                                                        </div>
-                                                        {theme === preset.id && <span className="text-blue-600 text-xs">✓</span>}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-
                                 {/* Dark/Light Toggle */}
                                 <button
-                                    onClick={toggleDarkMode}
+                                    onClick={toggleTheme}
                                     className="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 shadow-sm hover:bg-slate-100 transition-colors"
                                     aria-label="Toggle theme"
                                 >
-                                    {isDarkMode ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4 text-slate-600" />}
+                                    {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4 text-slate-600" />}
                                 </button>
 
                                 {/* Notifications */}

@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ShieldAlert, CheckCircle, Loader2, Plus, Edit2, Trash2 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Profile = () => {
+    const { t } = useLanguage();
     const [formData, setFormData] = useState({
         age: '',
         gender: '',
@@ -173,9 +175,11 @@ const Profile = () => {
             
             <div className="glass-panel p-8 mb-10 border-cyan-900/50">
                 <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="p-8">
+                    <h2 className="text-xl font-bold text-white mb-6 uppercase tracking-widest border-b border-slate-800 pb-4">{t('personalInformation') || 'Primary Citizen Profile'}</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">Age <span className="text-red-500 font-bold ml-0.5">*</span></label>
+                            <label className="block text-sm font-bold text-slate-400 mb-2 uppercase tracking-wide">{t('age')} <span className="text-red-500 font-bold ml-0.5">*</span></label>
                             <input type="number" name="age" value={formData.age} onChange={handleChange} className="glass-input w-full p-3" required />
                         </div>
                         <div>
@@ -296,6 +300,7 @@ const Profile = () => {
                         {saving ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : null}
                         {saving ? 'SYNCHRONIZING...' : 'SAVE CONFIGURATION'}
                     </button>
+                    </div>
                 </form>
             </div>
 
@@ -308,9 +313,18 @@ const Profile = () => {
                     <p className="text-slate-400 mt-1">Add family members to discover schemes for your entire family.</p>
                 </div>
                 {!showFamilyForm && (
-                    <button onClick={() => { setShowFamilyForm(true); setEditingMemberId(null); setFamilyFormData({name:'', relationship:'', age:'', gender:'', occupation:'', income:'', category:'', education:'', disability_status:'No', marital_status:''}); }} className="glass-button px-4 py-2 rounded-lg text-sm font-bold flex items-center">
-                        <Plus className="w-4 h-4 mr-2" /> Add Member
-                    </button>
+                <div className="p-8 border-t border-slate-800 bg-slate-900/30">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-xl font-bold text-white uppercase tracking-widest">{t('familyMembers') || 'Family Neural Network'}</h2>
+                        <button 
+                            type="button"
+                            onClick={() => { setShowFamilyForm(true); setEditingMemberId(null); setFamilyFormData({name: '', relationship: '', age: '', gender: '', occupation: '', income: '', category: '', education: '', disability_status: 'No', marital_status: ''}); }}
+                            className="text-xs bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded font-bold uppercase tracking-widest transition-colors flex items-center"
+                        >
+                            <Plus className="w-4 h-4 mr-1" /> {t('addFamilyMember') || 'Add Node'}
+                        </button>
+                    </div>
+                </div>
                 )}
             </div>
 

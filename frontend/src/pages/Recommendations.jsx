@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AlertCircle, CheckCircle2, ChevronRight, Activity, Info, XCircle, Clock, Eye, ThumbsUp, ThumbsDown, Bookmark, ExternalLink, FileText, Calendar, Coins, CheckSquare, Square, Users } from 'lucide-react';
 import PdfReportGenerator from '../components/PdfReportGenerator';
+import { useLanguage } from '../context/LanguageContext';
 
 const Recommendations = () => {
+    const { t } = useLanguage();
     const [recommendations, setRecommendations] = useState([]);
     const [insights, setInsights] = useState(null);
     const [userDocuments, setUserDocuments] = useState({});
@@ -74,8 +76,8 @@ const Recommendations = () => {
         <div className="animate-in fade-in duration-500 pb-12">
             <div className="mb-8 border-b border-slate-800 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <p className="text-cyan-500 font-mono text-sm tracking-widest uppercase mb-1">Family Recommendation Engine</p>
-                    <h1 className="text-4xl font-black text-white tracking-tight">System Matches <span className="text-slate-500 font-light">| EXPLAINABLE AI</span></h1>
+                    <p className="text-cyan-500 font-mono text-sm tracking-widest uppercase mb-1">{t('aiRecommendations') || 'Family Recommendation Engine'}</p>
+                    <h1 className="text-4xl font-black text-white tracking-tight">{t('recommendations')} <span className="text-slate-500 font-light">| {t('xaiMatrix') || 'EXPLAINABLE AI'}</span></h1>
                     <p className="text-slate-400 mt-2 font-light">The neural engine has evaluated your entire family against all active government protocols with full transparency.</p>
                 </div>
                 <PdfReportGenerator recommendations={recommendations} />

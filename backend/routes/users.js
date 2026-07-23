@@ -33,6 +33,8 @@ router.put('/profile', authMiddleware, async (req, res) => {
             'UPDATE Users SET age = ?, gender = ?, occupation = ?, income = ?, education = ?, state = ?, category = ?, disability_status = ?, marital_status = ? WHERE id = ?',
             [age, gender, occupation, income, education, state, category, disability_status, marital_status, req.user.id]
         );
+        // Delete stale cached recommendations so new ones are regenerated instantly
+        await db.execute('DELETE FROM Recommendations WHERE user_id = ?', [req.user.id]);
         res.json({ message: 'Profile updated successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
