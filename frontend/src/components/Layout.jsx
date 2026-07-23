@@ -110,7 +110,7 @@ const Layout = ({ children }) => {
                 <div className="flex flex-1 overflow-hidden">
                     {/* Sidebar */}
                     <aside className="w-72 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col z-20 shadow-sm">
-                        <div className={`h-24 flex flex-col justify-center px-6 border-b border-slate-200 bg-gradient-to-br ${activePreset.headerBg} transition-all duration-500`}>
+                        <div className="h-24 flex flex-col justify-center px-6 border-b border-slate-200 text-white transition-all duration-500" style={{ background: 'var(--header-bg)' }}>
                             <span className="text-2xl font-black tracking-tight text-white">GovScheme<span className="text-yellow-300">AI</span></span>
                             <span className="text-xs text-blue-100 mt-1 uppercase tracking-[0.15em] font-medium">AI Welfare Assistant</span>
                         </div>

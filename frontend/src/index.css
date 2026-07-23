@@ -1,163 +1,80 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
-@layer base {
-  body {
-    background-color: #eef3f8 !important;
-    color: #1a2840 !important;
-    font-family: 'Inter', system-ui, sans-serif;
-    min-height: 100vh;
-  }
-
-  /* Headings - deep navy for authority and trust */
-  h1, h2, h3, h4, h5, h6 {
-    color: #0d1f3c !important;
-    letter-spacing: -0.01em;
-    font-weight: 700;
-  }
-
-  p, span, label {
-    color: #3d5473;
-  }
-
-  /* Text color overrides */
-  .text-slate-100, .text-slate-200, .text-slate-300, .text-white {
-    color: #1a2840 !important;
-  }
-
-  .text-slate-400, .text-slate-500 {
-    color: #6b8299 !important;
-  }
-
-  /* Background overrides - clean white/off-white surfaces */
-  .bg-slate-950 {
-    background-color: #eef3f8 !important;
-  }
-
-  .bg-slate-900, .bg-slate-900\/50, .bg-slate-900\/80 {
-    background-color: #f7f9fc !important;
-  }
-
-  .bg-slate-800, .bg-slate-800\/50, .bg-slate-800\/80 {
-    background-color: #e8eef5 !important;
-  }
-
-  /* Sidebar - clean white */
-  aside.bg-slate-950\/80, aside {
-    background-color: #ffffff !important;
-    border-right-color: #d0dce8 !important;
-  }
-
-  header {
-    background-color: #ffffff !important;
-    border-bottom-color: #d0dce8 !important;
-  }
-
-  /* Borders - soft, unobtrusive */
-  .border-slate-800\/60, .border-slate-700, .border-slate-700\/50, .border-slate-800\/50 {
-    border-color: #d0dce8 !important;
-  }
-
-  /* Accent - trustworthy government blue */
-  .text-cyan-400, .text-cyan-500 {
-    color: #1a56db !important;
-  }
-
-  .bg-cyan-950\/50, .bg-cyan-950\/80, .bg-cyan-950\/90 {
-    background-color: #eff5ff !important;
-  }
-
-  .border-cyan-800\/50, .border-cyan-900\/50, .border-cyan-900\/60 {
-    border-color: #bfcfee !important;
-  }
-
-  .text-cyan-300 {
-    color: #1e429f !important;
-  }
-
-  /* Status indicators - soft and calm */
-  .bg-green-500\/10 {
-    background-color: rgba(5, 150, 105, 0.08) !important;
-  }
-
-  .text-green-700 {
-    color: #065f46 !important;
-  }
-
-  .bg-red-500\/10 {
-    background-color: rgba(220, 38, 38, 0.06) !important;
-  }
-
-  .text-red-700 {
-    color: #b91c1c !important;
-  }
-
-  /* Select dropdown */
-  select option {
-    background-color: #ffffff !important;
-    color: #1a2840 !important;
-  }
-
-  /* Buttons - professional government blue */
-  button.glass-button, a.glass-button, .glass-button {
-    color: #ffffff !important;
-    background: linear-gradient(135deg, #1a56db 0%, #1e3a8a 100%) !important;
-    border: 1px solid rgba(26, 86, 219, 0.2) !important;
-    box-shadow: 0 2px 10px rgba(26, 86, 219, 0.2) !important;
-  }
-
-  button.glass-button:hover, a.glass-button:hover, .glass-button:hover {
-    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%) !important;
-    box-shadow: 0 4px 16px rgba(26, 86, 219, 0.3) !important;
-  }
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --header-bg: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
+  --button-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  --accent-bg: #eff6ff;
+  --accent-text: #1d4ed8;
+  --card-border: #e2e8f0;
+  --app-bg: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
 }
 
-@layer components {
-  /* Cards - clean white with soft blue shadow */
-  .glass-panel {
-    background: #ffffff !important;
-    border: 1px solid #d0dce8 !important;
-    box-shadow: 0 2px 12px rgba(26, 86, 219, 0.05), 0 1px 3px rgba(0, 0, 0, 0.04) !important;
-    border-radius: 1rem !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
-    backdrop-filter: none !important;
-  }
+.dark {
+  --app-bg: #0b1329;
+  --card-bg: #152238;
+  --card-border: #24344d;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent-bg: #1e293b;
+}
 
-  .glass-panel:hover {
-    transform: translateY(-2px) !important;
-    border-color: #a3bcd8 !important;
-    box-shadow: 0 8px 24px rgba(26, 86, 219, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
-  }
+body {
+  background-color: var(--app-bg);
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-  /* Buttons */
-  .glass-button {
-    @apply text-white font-semibold transition-all duration-200 transform active:scale-95;
-    border-radius: 0.625rem !important;
-    padding: 0.65rem 1.25rem !important;
-  }
+/* Glass & Theme Styled Cards */
+.glass-panel {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border-radius: 1.25rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
 
-  .glass-button:hover {
-    transform: translateY(-1px);
-  }
+.glass-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
 
-  /* Input fields */
-  .glass-input {
-    background-color: #f7f9fc !important;
-    border: 1.5px solid #c8d8e8 !important;
-    color: #1a2840 !important;
-    border-radius: 0.625rem !important;
-    box-shadow: none !important;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
-  }
+/* Dynamic Glass Buttons */
+.glass-button, button.glass-button {
+  background: var(--button-gradient) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 0.75rem !important;
+  padding: 0.65rem 1.35rem !important;
+  font-weight: 700 !important;
+  font-size: 0.875rem !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25) !important;
+  transition: all 0.25s ease !important;
+}
 
-  .glass-input::placeholder {
-    color: #9bb2c8 !important;
-  }
+.glass-button:hover, button.glass-button:hover {
+  transform: translateY(-1px) scale(1.02) !important;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35) !important;
+}
 
-  .glass-input:focus {
-    border-color: #1a56db !important;
-    background-color: #ffffff !important;
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1) !important;
-  }
+/* Dynamic Inputs */
+.glass-input {
+  background-color: var(--card-bg) !important;
+  border: 1.5px solid var(--card-border) !important;
+  color: var(--text-main) !important;
+  border-radius: 0.75rem !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.glass-input:focus {
+  border-color: var(--primary-color) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
 }

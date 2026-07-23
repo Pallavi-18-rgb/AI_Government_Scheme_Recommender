@@ -90,7 +90,7 @@ const DocumentVault = () => {
   return (
     <div className="space-y-8 animate-fadeIn">
       {/* Header Banner */}
-      <div className={`p-8 rounded-3xl bg-gradient-to-r ${activePreset.headerBg} text-white shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4`}>
+      <div className="p-8 rounded-3xl text-white shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 transition-all duration-500" style={{ background: 'var(--header-bg)' }}>
         <div>
           <span className="text-xs uppercase tracking-widest font-bold text-sky-200">Security & Vault</span>
           <h1 className="text-3xl font-black mt-1">{t('documents')}</h1>

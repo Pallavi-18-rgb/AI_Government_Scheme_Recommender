@@ -6,61 +6,61 @@ export const themePresets = {
   sapphire: {
     id: 'sapphire',
     name: 'Royal Sapphire',
-    headerBg: 'from-[#1a3a6b] to-[#1a56db]',
-    brandBadge: 'bg-sky-600',
-    primaryBtn: 'bg-blue-600 hover:bg-blue-700 text-white',
-    accentText: 'text-blue-600',
-    accentBg: 'bg-blue-50 text-blue-700',
-    cardBorder: 'border-blue-100',
-    ringColor: 'ring-blue-500',
-    previewHex: '#1a56db'
+    primaryColor: '#2563eb',
+    headerBg: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%)',
+    buttonGradient: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+    accentBg: '#eff6ff',
+    accentText: '#1d4ed8',
+    cardBorder: '#dbeafe',
+    badgeBg: 'bg-blue-600',
+    previewHex: '#2563eb'
   },
   emerald: {
     id: 'emerald',
     name: 'Emerald Growth',
-    headerBg: 'from-[#064e3b] to-[#10b981]',
-    brandBadge: 'bg-emerald-600',
-    primaryBtn: 'bg-emerald-600 hover:bg-emerald-700 text-white',
-    accentText: 'text-emerald-600',
-    accentBg: 'bg-emerald-50 text-emerald-700',
-    cardBorder: 'border-emerald-100',
-    ringColor: 'ring-emerald-500',
+    primaryColor: '#059669',
+    headerBg: 'linear-gradient(135deg, #064e3b 0%, #047857 50%, #10b981 100%)',
+    buttonGradient: 'linear-gradient(135deg, #10b981 0%, #047857 100%)',
+    accentBg: '#ecfdf5',
+    accentText: '#047857',
+    cardBorder: '#a7f3d0',
+    badgeBg: 'bg-emerald-600',
     previewHex: '#10b981'
   },
   amber: {
     id: 'amber',
     name: 'Sunset Amber',
-    headerBg: 'from-[#7c2d12] to-[#f97316]',
-    brandBadge: 'bg-amber-600',
-    primaryBtn: 'bg-amber-600 hover:bg-amber-700 text-white',
-    accentText: 'text-amber-600',
-    accentBg: 'bg-amber-50 text-amber-800',
-    cardBorder: 'border-amber-100',
-    ringColor: 'ring-amber-500',
-    previewHex: '#f97316'
+    primaryColor: '#ea580c',
+    headerBg: 'linear-gradient(135deg, #451a03 0%, #9a3412 50%, #ea580c 100%)',
+    buttonGradient: 'linear-gradient(135deg, #f97316 0%, #c2410c 100%)',
+    accentBg: '#fff7ed',
+    accentText: '#c2410c',
+    cardBorder: '#fed7aa',
+    badgeBg: 'bg-amber-600',
+    previewHex: '#ea580c'
   },
   obsidian: {
     id: 'obsidian',
     name: 'Midnight Obsidian',
-    headerBg: 'from-[#0f172a] to-[#334155]',
-    brandBadge: 'bg-slate-800',
-    primaryBtn: 'bg-slate-900 hover:bg-slate-800 text-white',
-    accentText: 'text-cyan-600',
-    accentBg: 'bg-slate-100 text-slate-900',
-    cardBorder: 'border-slate-300',
-    ringColor: 'ring-slate-500',
-    previewHex: '#0f172a'
+    primaryColor: '#0891b2',
+    headerBg: 'linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%)',
+    buttonGradient: 'linear-gradient(135deg, #0891b2 0%, #0e7490 100%)',
+    accentBg: '#ecfeff',
+    accentText: '#0e7490',
+    cardBorder: '#cff4fc',
+    badgeBg: 'bg-cyan-600',
+    previewHex: '#0891b2'
   },
   iris: {
     id: 'iris',
     name: 'Velvet Iris',
-    headerBg: 'from-[#4c1d95] to-[#7c3aed]',
-    brandBadge: 'bg-purple-600',
-    primaryBtn: 'bg-purple-600 hover:bg-purple-700 text-white',
-    accentText: 'text-purple-600',
-    accentBg: 'bg-purple-50 text-purple-700',
-    cardBorder: 'border-purple-100',
-    ringColor: 'ring-purple-500',
+    primaryColor: '#7c3aed',
+    headerBg: 'linear-gradient(135deg, #2e1065 0%, #581c87 50%, #7c3aed 100%)',
+    buttonGradient: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)',
+    accentBg: '#f5f3ff',
+    accentText: '#6d28d9',
+    cardBorder: '#ddd6fe',
+    badgeBg: 'bg-purple-600',
     previewHex: '#7c3aed'
   }
 };
@@ -85,8 +85,18 @@ export const ThemeProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', isDarkMode);
-  }, [isDarkMode]);
+    const activePreset = themePresets[theme] || themePresets.sapphire;
+    const root = document.documentElement;
+
+    root.style.setProperty('--primary-color', activePreset.primaryColor);
+    root.style.setProperty('--header-bg', activePreset.headerBg);
+    root.style.setProperty('--button-gradient', activePreset.buttonGradient);
+    root.style.setProperty('--accent-bg', activePreset.accentBg);
+    root.style.setProperty('--accent-text', activePreset.accentText);
+    root.style.setProperty('--card-border', activePreset.cardBorder);
+
+    root.classList.toggle('dark', isDarkMode);
+  }, [theme, isDarkMode]);
 
   const activePreset = themePresets[theme] || themePresets.sapphire;
 
