@@ -55,6 +55,90 @@ function checkEligibility(person, scheme) {
     const schemeElig = (scheme.eligibility || '').toLowerCase().trim();
     const schemeAgeGroup = (scheme.age_group || 'All').trim();
 
+    // ---- 0. SPECIAL KEYWORD & ELIGIBILITY STRICT REJECTS ----
+
+    // Disability check
+    const isDisabilityScheme = schemeCat.includes('disability') || 
+                               schemeName.includes('disability') || 
+                               schemeName.includes('divyang') || 
+                               schemeName.includes('adip') || 
+                               schemeName.includes('disabled') || 
+                               schemeElig.includes('disabled') || 
+                               schemeElig.includes('disabilities') ||
+                               schemeElig.includes('differently abled');
+
+    if (isDisabilityScheme) {
+        if (personDisability === 'yes') {
+            breakdown.disability = { match: true, reason: 'Disability status matches' };
+            score += 1;
+        } else {
+            breakdown.disability = { match: false, reason: 'Disability scheme — user does not have a disability' };
+            return { eligible: false, score: 0, confidence: 0, breakdown };
+        }
+    } else {
+        breakdown.disability = { match: true, reason: 'No disability requirement' };
+        score += 1;
+    }
+
+    // Pregnancy / Maternity check
+    if (schemeElig.includes('pregnant') || schemeElig.includes('maternity') || schemeElig.includes('janani') || schemeElig.includes('lactating')) {
+        if (personGender !== 'female' && personGender !== 'women') {
+            breakdown.gender = { match: false, reason: 'Maternity/Pregnancy scheme — applicable to females only' };
+            return { eligible: false, score: 0, confidence: 0, breakdown };
+        }
+    }
+
+    // Widow check
+    if (schemeOcc === 'widow' || schemeElig.includes('widow')) {
+        if (personMarital !== 'widow' && personMarital !== 'widowed') {
+            breakdown.occupation = { match: false, reason: 'Scheme intended specifically for widows' };
+            return { eligible: false, score: 0, confidence: 0, breakdown };
+        }
+    }
+
+    // Girl Child check
+    if (schemeElig.includes('girl child') || schemeName.includes('sukanya')) {
+        if (personGender !== 'female' || personAge > 14) {
+            breakdown.gender = { match: false, reason: 'Scheme intended specifically for young girl children' };
+            return { eligible: false, score: 0, confidence: 0, breakdown };
+        }
+    }
+
+    // Senior Citizen check
+    if (schemeOcc === 'senior citizen' || schemeElig.includes('senior citizen') || schemeElig.includes('elderly')) {
+        if (personAge < 60) {
+            breakdown.age = { match: false, reason: 'Scheme intended for Senior Citizens (Age 60+)' };
+            return { eligible: false, score: 0, confidence: 0, breakdown };
+        }
+    }
+
+    // Child check
+    if (schemeOcc === 'child' || schemeAgeGroup.toLowerCase() === 'children' || schemeElig.includes('children')) {
+        if (personAge > 14) {
+            breakdown.age = { match: false, reason: 'Scheme intended specifically for children (Age 0-14)' };
+            return { eligible: false, score: 0, confidence: 0, breakdown };
+        }
+    }
+
+    // ---- OCCUPATION & CATEGORY RELEVANCE FILTER ----
+    // Exclude completely irrelevant categories based on occupation
+    if (personOcc.includes('student')) {
+        const irrelevantForStudents = ['agriculture', 'entrepreneurship', 'pension', 'housing'];
+        if (irrelevantForStudents.includes(schemeCat) && schemeOcc !== 'student') {
+            return { eligible: false, score: 0, confidence: 0, breakdown };
+        }
+    } else if (personOcc.includes('farmer') || personOcc.includes('agriculture')) {
+        const irrelevantForFarmers = ['entrepreneurship'];
+        if (irrelevantForFarmers.includes(schemeCat) && schemeOcc !== 'farmer') {
+            return { eligible: false, score: 0, confidence: 0, breakdown };
+        }
+    } else if (personOcc.includes('entrepreneur') || personOcc.includes('business')) {
+        const irrelevantForEntrepreneurs = ['agriculture', 'pension'];
+        if (irrelevantForEntrepreneurs.includes(schemeCat) && schemeOcc !== 'entrepreneur') {
+            return { eligible: false, score: 0, confidence: 0, breakdown };
+        }
+    }
+
     // ---- 1. AGE CHECK ----
     if (schemeAgeGroup === 'All' || schemeAgeGroup === 'Any') {
         breakdown.age = { match: true, reason: 'Open to all ages' };
@@ -78,14 +162,6 @@ function checkEligibility(person, scheme) {
                 breakdown.age = { match: false, reason: `Age ${personAge} is outside ${schemeAgeGroup}` };
                 rejected = true;
             }
-        }
-    } else if (schemeAgeGroup.toLowerCase() === 'children') {
-        if (personAge <= 14) {
-            breakdown.age = { match: true, reason: `Age ${personAge} qualifies as child` };
-            score += 1;
-        } else {
-            breakdown.age = { match: false, reason: `Age ${personAge} does not qualify as child` };
-            rejected = true;
         }
     }
 
@@ -188,7 +264,6 @@ function checkEligibility(person, scheme) {
             rejected = true;
         }
     } else {
-        // Generic occupation match
         if (personOcc.includes(schemeOcc) || schemeOcc.includes(personOcc)) {
             breakdown.occupation = { match: true, reason: `Occupation match: "${person.occupation}"` };
             score += 1;
@@ -211,15 +286,13 @@ function checkEligibility(person, scheme) {
             rejected = true;
         }
     } else {
-        // Parse numeric limits like "< ₹8 Lakh", "< ?2.5 Lakh", "< ₹15,000/month"
         const numStr = schemeIncome.replace(/[^0-9.]/g, '');
         let limit = parseFloat(numStr);
         if (schemeIncome.includes('lakh')) {
             limit = limit * 100000;
         } else if (schemeIncome.includes('month')) {
-            limit = limit * 12; // Convert monthly to annual
+            limit = limit * 12;
         } else if (limit < 1000) {
-            // Likely in lakhs if the number is small
             limit = limit * 100000;
         }
 
@@ -255,7 +328,6 @@ function checkEligibility(person, scheme) {
         breakdown.education = { match: true, reason: `Education "${person.education}" matches` };
         score += 1;
     } else {
-        // Flexible: most schemes have "All" education so this is rarely triggered
         breakdown.education = { match: true, reason: 'Education criteria met' };
         score += 1;
     }
@@ -274,21 +346,6 @@ function checkEligibility(person, scheme) {
         score += 1;
     }
 
-    // ---- 8. DISABILITY CHECK (STRICT) ----
-    if (schemeCat.includes('disability') || schemeName.includes('disability') || schemeName.includes('divyang') || schemeName.includes('adip') || schemeName.includes('disabled')) {
-        if (personDisability === 'yes') {
-            breakdown.disability = { match: true, reason: 'Disability status matches' };
-            score += 1;
-        } else {
-            breakdown.disability = { match: false, reason: 'Disability scheme — person does not have disability' };
-            rejected = true;
-        }
-    } else {
-        breakdown.disability = { match: true, reason: 'No disability requirement' };
-        score += 1;
-    }
-
-    // Calculate confidence
     const confidence = Math.round((score / maxScore) * 100);
 
     return {

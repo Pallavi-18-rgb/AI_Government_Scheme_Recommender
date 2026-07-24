@@ -95,7 +95,7 @@ const Layout = ({ children }) => {
 
     if (token) {
         return (
-            <div className="flex flex-col h-screen bg-[#f1f5f9] text-slate-800 overflow-hidden font-sans">
+            <div className="flex flex-col h-screen bg-slate-950 text-slate-800 overflow-hidden font-sans">
                 {/* Department Branding Header */}
                 <div className="bg-[#1a3a6b] text-center py-2.5 flex-shrink-0 z-30 tracking-wide">
                     <div className="text-sm font-bold uppercase tracking-widest text-white">P.E.S. College of Engineering, Mandya</div>
@@ -245,7 +245,7 @@ const Layout = ({ children }) => {
 
     // Public Top Navbar Layout
     return (
-        <div className="min-h-screen bg-[#f1f5f9] text-slate-800 flex flex-col font-sans">
+        <div className="min-h-screen bg-slate-950 text-slate-800 flex flex-col font-sans">
             <div className="bg-[#1a3a6b] text-center py-2.5 flex-shrink-0 z-50 tracking-wide">
                 <div className="text-sm font-bold uppercase tracking-widest text-white">P.E.S. College of Engineering, Mandya</div>
                 <div className="text-xs font-medium text-blue-200 mt-0.5">Department of Computer Science and Engineering (Data Science)</div>
